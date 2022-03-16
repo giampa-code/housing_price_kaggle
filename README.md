@@ -35,8 +35,14 @@ ELO	Electricity only	--> 0
 
 This process will be done automatically, grouping by the feature's labels and ranking by the mean of the target (SalePrice).
 
+v2: The MSSubClass was re-encoded to find a tendency between the labels.
+
+### Feature correlation
+
 
 ### Outlier treatment
+
+V2: around 15 outlier point were dropped and several data columns were dropped because the target seemed independent from them.
 
 ### Normalization
 
@@ -47,7 +53,7 @@ Most of the features don't follow a normal distribution and the mean/median/mode
 
 V1: quadratic and squared powers were added to the most relevant features (selected as the N features that weight represents the 80% of the total).
 
-V2:
+V2: The feature Baths was created like a combination of all the baths features.
 
 ### Versions
 
@@ -70,9 +76,10 @@ Diverse ML models were used, starting from plain Linear Regression
 - Regularized LR (Ridge with alpha=12 optimized for MAE) R2_mean = 0.822 and kaggle  MAE = 20142 (same results)
 - Regularized LR with MRF powers (Ridge with alpha=0.4) R2_mean = 0.862 and kaggle MAE = 91591
 - Regularized LR with MRF powers (Ridge with alpha=1) R2_mean = 0.86 and kaggle MAE = 21748 
+- Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.07) R2_mean = 0.922 and kaggle MAe = 3948 MILLION WTF
 
-- XGBosst (FE data v0) R2 = 0.92 and kaggle MAE = 18243
-- XGBosst (FE data v1) R2 = 0.92 and kaggle MAE = 18243 (The same)
+- XGBoost (FE data v0) R2 = 0.92 and kaggle MAE = 18243
+- XGBoost (FE data v1) R2 = 0.92 and kaggle MAE = 18243 (The same)
 
 
 ## 3. Problems found
@@ -84,9 +91,25 @@ In the model analysis notebook I made some analysis of how R2 score varies with 
 
 The model performs between 0.7 and 0.85, but in some weird cases, the R2 score gets almost infinite negative values. I could not sort out why this was happening.
 
+Sometimes the models perform well with the test set (cv), but very bad in the Kaggle set, like there is a lot of noise.
+
+Good test set performance. HORRIBLE kaggle performance:
+
+It happend to me that I get very good test (my "test" set, the cross validation) set performance (R2=0.92, MAE = 15k) but when I upload the solution to Kaggle I end with a 4 BILLION MAE Score. (???)
+
+
 Varying a little bit the regularization parameter alpha has a very big impact in the MAE result of Kaggle.
 Later I will do some research.
 
-## 4. Process
+## 4. Notes
 
-![Alt text](url "Title")
+A relativelly good result was accomplished with the first model of Linear regression with the data of FEv0 (MAE=~20k)
+
+No major improvement could be done manipulating the datasets using the Linear Regression model with the FE v0 and v1.
+A significant improvement was acomplished using the alogorithm that everybody uses for the competition (XGBoost). (MAE=~18k).
+
+
+
+
+
+
