@@ -79,7 +79,7 @@ Diverse ML models were used, starting from plain Linear Regression
 
 In the model analysis notebook I made some analysis of how R2 score varies with changing the random_state and the test_size of the split fuction.
 
-![R2 = f(random_state]( ../feature_engineering/R2_f(random_state).png?raw=true "R2 = f(random_state" )
+![R2 = f(random_state]( https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/R2_f(random_state).png )
 
 
 The model performs between 0.7 and 0.85, but in some weird cases, the R2 score gets almost infinite negative values. I could not sort out why this was happening.
