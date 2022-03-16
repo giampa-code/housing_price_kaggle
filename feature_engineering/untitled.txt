@@ -1,0 +1,32 @@
+### Conclusion from the charts
+
+- MSSubClass: should be re-encoded to find a tendency between the labels #ok
+- LotFrontage: drop values greater than 300   #ok
+- LotArea: drop values greater than 100000   ok
+
+
+- BsmtFinSF1: drop values greater than 4000   ok
+
+- TotalBsmtSF: drop values greater than 5000   ok
+- 1stFlrSF: drop values greater than 4000   ok
+
+- 2ndFlrSF: ok
+- LowQualFinSF: Almost constant, drop feature.   ok
+- GrLivArea: drop values greather than 4000 when the sale price is lower than 200000   ok
+- BsmtFullBath: Drop columns  ok
+- BsmtHalfBath: drop feature  ok
+- FullBath: ok -> Turn this feature into Baths = FullBath + 0.75* BsmtFullBath + 0.5 * HalfBath + 0.75 BsmtHalfBath
+
+- HalfBath: drop feature  #ok
+- KitchenAbvGr: drop  #ok
+
+
+- GarageArea: drop values greater than 1200 and Saleprice lower than 300000    ok
+- OpenPorch: drop values greater than 500 and SalePrice lower than 200000     ok
+- 3SsnPorch: constant, drop feature.       ok 
+
+
+- MiscVal: don't see much relation in this feature, drop.          ok
+- MoSold: no aparent trend, drop.    ok
+- YearSold: no aparent trend, drop.    ok
+
