@@ -89,4 +89,3 @@ Later I will do some research.
 
 ## 4. Process
 
-![Alt text](url "Title")
