@@ -105,9 +105,9 @@ It happend to me that I get very good test (my "test" set, the cross validation)
 One plot that has helped me to fix this problem is plotting the target value with the most correlated feature in the x axis, for both train and test set.
 If the plots look similar, it is probable that the result will be good. Otherwise I cant expect bad result in the kaggle score.
 
-![Good result]( https://github.com/giampa14/housing_price_kaggle/tree/master/models/good_result.png )
+![Good result]( https://github.com/giampa14/housing_price_kaggle/tree/master/models/good_results.png )
 
-![Bad result]( https://github.com/giampa14/housing_price_kaggle/tree/master/models/bad_result.png )
+![Bad result]( https://github.com/giampa14/housing_price_kaggle/tree/master/models/bad_results.png )
 
 Varying a little bit the regularization parameter alpha has a very big impact in the MAE result of Kaggle.
 Later I will do some research.
