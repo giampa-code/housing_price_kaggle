@@ -53,7 +53,8 @@ Most of the features don't follow a normal distribution and the mean/median/mode
 
 V1: quadratic and squared powers were added to the most relevant features (selected as the N features that weight represents the 80% of the total).
 
-V2: The feature Baths was created like a combination of all the baths features.
+V2: The feature Baths was created like a combination of all the baths features. Powers 2, 3 and 4 have been added for the 15 MRF.
+
 
 ### Versions
 
@@ -67,7 +68,7 @@ The files used were named feature_engineering_vx, corresponding to each version 
 
 - v2_1: Idem v2, but without the powers. I will try to use this with a NN.
 
-- v3: Idem v3, but with the 25 most correlated features and adding the 0.5 power.
+- v3: Idem v3, but with the 15 most correlated features and adding the 0.5 power and 5th. (This did not seem to make further improvement, indeed using more features (25) led to worser results)
 
 
 ## 2. Models result summary
@@ -82,10 +83,15 @@ Diverse ML models were used, starting from plain Linear Regression
 - Regularized LR with MRF powers (Ridge with alpha=1) R2_mean = 0.86 and kaggle MAE = 21748 
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14805
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.05) R2_mean = 0.922 and kaggle MAe = 14496
+- Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14440
+- Regularized LR with 15 MRF powers (0.5,2,3,4,5) (alpha = 2) R2_mean = 0.922 and kaggle MAe = 14470
 
 - XGBoost (FE data v0) R2 = 0.92 and kaggle MAE = 18243
 - XGBoost (FE data v1) R2 = 0.92 and kaggle MAE = 18243 (The same)
-- XGBoost (FE data v2) R2 = 0.92 and kaggle MAE = 18243
+- XGBoost (FE data v2) R2 = 0.92 and kaggle MAE = 14849
+- XGBoost (FE data v3) R2 = 0.92 and kaggle MAE = 14849
+
+- Skl Neural network R2 = 0.77 and MAE = 21000 (I just copy some code, I used skl NN because I could not install tensorflow)
 
 
 ## 3. Problems found
@@ -125,7 +131,10 @@ With Regularized LR kaggle MAE = 14440 and for XGBoost MAE = 14849. With this su
 It was shown that optimizing the regularization parameter for the R2 score of the cross validation set was not the best option.
 Increasing the regularization, hence lowering the variance, showed better results in the Kaggle test set.
 
-In a next step, I will add a 0.5 power and include more MRFs.
+I will add a 0.5 power and include more MRFs.
+This approximation did not give better results, indeed, the result went worse.
+
+In next steps, I want to research about different algorithms and how to implement them in this competition.
 
 
 
