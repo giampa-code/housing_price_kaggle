@@ -68,6 +68,10 @@ The files used were named feature_engineering_vx, corresponding to each version 
 
 - v2_1: Idem v2, but without the powers. I will try to use this with a NN.
 
+- v2_2: variation of v2 but dropping less outliners and features. This data showed the best results.
+
+- v2_3: v2_2 but with the 5th power.
+
 - v3: Idem v3, but with the 15 most correlated features and adding the 0.5 power and 5th. (This did not seem to make further improvement, indeed using more features (25) led to worser results)
 
 
@@ -78,18 +82,29 @@ Diverse ML models were used, starting from plain Linear Regression
 - Linear Regression R2_mean = 0.77   MAE = 20662
 
 - Regularized LR (Ridge with alpha=3 optimized for R2) R2_mean = 0.822 and kaggle MAE = 20142
-- Regularized LR (Ridge with alpha=12 optimized for MAE) R2_mean = 0.822 and kaggle  MAE = 20142 (same results)
+- Regularized LR (Ridge with alpha=12 optimized for MAE) R2_mean = 0.822 and kaggle  MAE = 20142 
 - Regularized LR with MRF powers (Ridge with alpha=0.4) R2_mean = 0.862 and kaggle MAE = 91591
 - Regularized LR with MRF powers (Ridge with alpha=1) R2_mean = 0.86 and kaggle MAE = 21748 
+
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14805
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.05) R2_mean = 0.922 and kaggle MAe = 14496
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14440
-- Regularized LR with 15 MRF powers (0.5,2,3,4,5) (alpha = 2) R2_mean = 0.922 and kaggle MAe = 14470
+- Regularized LR with 15 MRF powers (2,3,4) (alpha = 2) R2_mean = 0.922 and kaggle MAe = 14470
 
-- XGBoost (FE data v0) R2 = 0.92 and kaggle MAE = 18243
-- XGBoost (FE data v1) R2 = 0.92 and kaggle MAE = 18243 (The same)
-- XGBoost (FE data v2) R2 = 0.92 and kaggle MAE = 14849
-- XGBoost (FE data v3) R2 = 0.92 and kaggle MAE = 14849
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.3  R2_mean = 0.926 and kaggle MAE = 14340
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.4  R2_mean = 0.926 and kaggle MAE = 14324
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1  R2_mean = 0.926 and kaggle MAE = 14288 (best)
+
+- Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 0.1  R2_mean = 0.925 and kaggle MAE = 14609 
+- Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 1  R2_mean = 0.923 and kaggle MAE = 14305 
+
+
+- XGBoost (FE data v0) R2 = 0.89 and kaggle MAE = 18243
+- XGBoost (FE data v1) R2 = 0.89 and kaggle MAE = 18243 (The same)
+- XGBoost (FE data v2) R2 = 0.91 and kaggle MAE = 14849
+- XGBoost (FE data v3) R2 = 0.91 and kaggle MAE = 14849
+
+- XGBoost (FE data v2_2) R2 = 0.917 and kaggle MAE = 14413
 
 - Skl Neural network R2 = 0.77 and MAE = 21000 (I just copy some code, I used skl NN because I could not install tensorflow)
 
@@ -134,7 +149,8 @@ Increasing the regularization, hence lowering the variance, showed better result
 I will add a 0.5 power and include more MRFs.
 This approximation did not give better results, indeed, the result went worse.
 
-In next steps, I want to research about different algorithms and how to implement them in this competition.
+In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func.
+
 
 
 
