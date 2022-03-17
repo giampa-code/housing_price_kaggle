@@ -65,6 +65,10 @@ The files used were named feature_engineering_vx, corresponding to each version 
 
 - v2: Extra analysis for outliers and non useful funcs. Extra 2, 3 and 4 powers to the 15 most correlated features.
 
+- v2_1: Idem v2, but without the powers. I will try to use this with a NN.
+
+- v3: Idem v3, but with the 25 most correlated features and adding the 0.5 power.
+
 
 ## 2. Models result summary
 
@@ -98,6 +102,10 @@ Sometimes the models perform well with the test set (cv), but very bad in the Ka
 Good test set performance. HORRIBLE kaggle performance:
 
 It happend to me that I get very good test (my "test" set, the cross validation) set performance (R2=0.92, MAE = 15k) but when I upload the solution to Kaggle I end with a 4 BILLION MAE Score. (???)
+One plot that has helped me to fix this problem is plotting the target value with the most correlated feature in the x axis, for both train and test set.
+If the plots look similar, it is probable that the result will be good. Otherwise I cant expect bad result in the kaggle score.
+
+
 
 
 Varying a little bit the regularization parameter alpha has a very big impact in the MAE result of Kaggle.
