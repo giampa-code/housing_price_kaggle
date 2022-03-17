@@ -63,7 +63,7 @@ The files used were named feature_engineering_vx, corresponding to each version 
 
 - v1: cuadratic values were added for the most_relevant_features (MRF) of the regularized LR.
 
-- v2: Extra analysis for outliers and non useful funcs. No powered funcs.
+- v2: Extra analysis for outliers and non useful funcs. Extra 2, 3 and 4 powers to the 15 most correlated features.
 
 
 ## 2. Models result summary
@@ -76,10 +76,12 @@ Diverse ML models were used, starting from plain Linear Regression
 - Regularized LR (Ridge with alpha=12 optimized for MAE) R2_mean = 0.822 and kaggle  MAE = 20142 (same results)
 - Regularized LR with MRF powers (Ridge with alpha=0.4) R2_mean = 0.862 and kaggle MAE = 91591
 - Regularized LR with MRF powers (Ridge with alpha=1) R2_mean = 0.86 and kaggle MAE = 21748 
-- Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.07) R2_mean = 0.922 and kaggle MAe = 3948 MILLION WTF
+- Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14805
+- Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.05) R2_mean = 0.922 and kaggle MAe = 14496
 
 - XGBoost (FE data v0) R2 = 0.92 and kaggle MAE = 18243
 - XGBoost (FE data v1) R2 = 0.92 and kaggle MAE = 18243 (The same)
+- XGBoost (FE data v2) R2 = 0.92 and kaggle MAE = 18243
 
 
 ## 3. Problems found
@@ -107,6 +109,15 @@ A relativelly good result was accomplished with the first model of Linear regres
 
 No major improvement could be done manipulating the datasets using the Linear Regression model with the FE v0 and v1.
 A significant improvement was acomplished using the alogorithm that everybody uses for the competition (XGBoost). (MAE=~18k).
+
+With FE v2 (that includes some extra preprocessing and powers of the 15 MRF), significant improvement was acomplished.
+With Regularized LR kaggle MAE = 14440 and for XGBoost MAE = 14849. With this submission I achieved the 518th place, inside the 2% best submissions.
+
+It was shown that optimizing the regularization parameter for the R2 score of the cross validation set was not the best option.
+Increasing the regularization, hence lowering the variance, showed better results in the Kaggle test set.
+
+In a next step, I will add a 0.5 power and include more MRFs.
+
 
 
 
