@@ -112,7 +112,7 @@ R2 score and mean absolute error (MAE) were used for results comparisson.
 I find that plotting the target value SalePrice with the most correlated feature in the x axis was a good way of visualizing the model accuracy. I made this plot comparnt the test target values with the test predicted values.
 
 pic 'test_vs_test_pred.png'
-![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/MRF_heatmap.png/?raw=true)
+![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/models/test_vs_test_pred.png/?raw=true)
 
 ### 2.3 Looking for the best regularization parameter
 
