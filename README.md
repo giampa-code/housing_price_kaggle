@@ -15,9 +15,9 @@ Reviewing, NaN treatment, categorical encoding, outlier treatment and normalizat
 The data set cames with a NaN ratio of 6.3%.
 Most of the features were full of NaN values that corresponded to NA 'Not Apply' or another type of categorical value instead.
 For example, in the feature "Pool Quality" a house with no pool will be calified with NA = No Pool. This 'NA' was treated as a NaN in the dataset, so we need to return it back to its original value 'NA'.
-This NaNs were transformed back into the 'NA' values for later categorical encodig.
+These NaNs were transformed back into the 'NA' values for later categorical encodig.
 
-For GarageYrBlt and LotFrontage it was seen that the NaN values came from properties without a garage or without frontage respectively. So in this cases the NaN were filled with 0.
+For GarageYrBlt and LotFrontage it was seen that the NaN values came from properties without a garage or without frontage respectively. So in these cases the NaN were filled with 0.
 
 The final NaN ratio was 0.014%
 
@@ -48,7 +48,7 @@ v2: The MSSubClass was re-encoded to find a tendency between the labels.
 ### 1.3 Outliers treatment
 
 V2: around 15 outlier point were dropped and several data columns were dropped because the target seemed independent from them.
-V2_2: 10 outlier points and 11 features were dropped. It was shown in the charts that this features does not have much relation with the Sale Price.
+V2_2: 10 outlier points and 11 features were dropped. It was shown in the charts that these features does not have much relation with the Sale Price.
 
 ![Outlier_treatment](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/scatter_YrSold_SalePrice.png/?raw=true)
 
