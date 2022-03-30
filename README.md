@@ -42,7 +42,7 @@ This process will be done automatically, grouping by the feature's labels and ra
 
 v2: The MSSubClass was re-encoded to find a tendency between the labels.
 
-![SalePrice=f(Neighborhood)](https://github.com/giampa14/housing_price_kaggle/tree/master/feature_engineering/scatter_Neighborhood_SalePrice.png)
+![SalePrice=f(Neighborhood)](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/scatter_Neighborhood_SalePrice.png/?raw=true)
 
 
 ### 1.3 Outliers treatment
