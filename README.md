@@ -4,21 +4,26 @@ This notebooks will be developed for educational porpouses to apply the knowledg
 
 # Steps
 
-## 1. Feature Engineering / Data manipulaton
+## 1 Feature Engineering / Data manipulaton
 
 The data was downloaded from the kaggle competition.
 It consist of 79 features of houses to predict the sale price.
 Reviewing, NaN treatment, categorical encoding, outlier treatment and normalization were made in this part.
 
-### NaN Treatment
+### 1.1 NaN Treatment
 
-For the NaN treatment most of the features were full of NaN values that corresponded to NA 'Not Apply' insted. This NaNs were transformed back into the 'NA' values for later categorical encodig.
+The data set cames with a NaN ratio of 6.3%.
+Most of the features were full of NaN values that corresponded to NA 'Not Apply' or another type of categorical value instead.
+For example, in the feature "Pool Quality" a house with no pool will be calified with NA = No Pool. This 'NA' was treated as a NaN in the dataset, so we need to return it back to its original value 'NA'.
+This NaNs were transformed back into the 'NA' values for later categorical encodig.
 
 For GarageYrBlt and LotFrontage it was seen that the NaN values came from properties without a garage or without frontage respectively. So in this cases the NaN were filled with 0.
 
+The final NaN ratio was 0.014%
+
 The rest of the NaNs of the train set were dropped. The rest of the NaNs for the test set were filled with the mode.
 
-### Categorical encoding
+### 1.2 Categorical encoding
 
 Because there are son many features with categorical data, using dummy for all variables will leave the df with hundreds columns more.
 Also, many of the categorical features have some ordinal properties, so we want to keep that information. Variables will be processed to asign numerical values going from 0 (worst) to n (best) (n=number of labels)
@@ -37,26 +42,44 @@ This process will be done automatically, grouping by the feature's labels and ra
 
 v2: The MSSubClass was re-encoded to find a tendency between the labels.
 
-### Feature correlation
+pic 'scatter_Neighborhood_SalePrice.png'
 
 
-### Outlier treatment
+### 1.3 Outliers treatment
 
 V2: around 15 outlier point were dropped and several data columns were dropped because the target seemed independent from them.
+V2_2: 10 outlier points and 11 features were dropped. It was shown in the charts that this features does not have much relation with the Sale Price.
 
-### Normalization
+pic 'scatter_YrSold_SalePrice.png'
 
-Most of the features don't follow a normal distribution and the mean/median/mode are distortioned due to high "Not apply" or zero values. Each feature was divided by it's range to scale it between 0 and 1.
+### 1.4 Adittional features
+
+Having that much Bathroom features did not seemed to help. A unique 'Bath' feature was created with the following consideration: train['FullBath'] + 0.75 * train['BsmtFullBath'] + 0.5 * train['HalfBath'] + 0.375 * train['BsmtHalfBath']
+
+### 1.5 Normalization
+
+Most of the features don't follow a normal distribution and the mean/median/mode are distortioned due to high "Not apply" or zero values. Considering this, each feature was divided by it's range to scale it between 0 and 1.
+
+For the case of the years variables, I will substract the min year first, because otherwise the final enconding will end with high values I.e. 1988/200 =~ 10
 
 
-### Additional features
+### 1.6 Feature correlation
+
+A correlation heat map was made for the 15 most relevant/correlated features.
+
+pic 'MRF_heatmap.png'
+
+With this MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
+
+
+### 1.7 Polynomical features
 
 V1: quadratic and squared powers were added to the most relevant features (selected as the N features that weight represents the 80% of the total).
 
-V2: The feature Baths was created like a combination of all the baths features. Powers 2, 3 and 4 have been added for the 15 MRF.
+V2_2: Powers 2, 3 and 4 have been added for the 15 MRF.
 
 
-### Versions
+### 1.8 Versions
 
 The files used were named feature_engineering_vx, corresponding to each version of the processed data:
 
@@ -74,8 +97,42 @@ The files used were named feature_engineering_vx, corresponding to each version 
 
 - v3: Idem v3, but with the 15 most correlated features and adding the 0.5 power and 5th. (This did not seem to make further improvement, indeed using more features (25) led to worser results)
 
+## 2 Model
 
-## 2. Models result summary
+### 2.1 Splitting data and fitting the model
+
+Train data was splitted with a test size of 0.4. Given we have another separated test set, this test set can be qualified as our cross validation set.
+
+The best result were shown using Regularized Linear Regression (Ridge).
+R2 score and mean absolute error (MAE) were used for results comparisson.
+
+### 2.2 Veryfing results
+
+I find that plotting the target value SalePrice with the most correlated feature in the x axis was a good way of visualizing the model accuracy. I made this plot comparnt the test target values with the test predicted values.
+
+pic 'test_vs_test_pred.png'
+
+### 2.3 Looking for the best regularization parameter
+
+Plotting the R2 score as a function of the regularization parameter shows that no substancial changes are happening between 0.01 and 1.
+
+pic 'R2=f(regularization).png'
+
+Learning curves for these two regularization parameters were plotted. As the images show the cost fuction for the train and the test set are approaching asymptotically with a relativelly low final error.
+This can indicate us that the model is not overfitted (high variance) nor underfitted (high bias).
+
+pic 'learning_curves_Alpha_0.01.png'
+pic 'learning_curves_Alpha_1.png'
+
+Despite the good results, lower regularization parameter gives higher variance, hence more error in Kaggle. So it's important to find a trade-off between variance and bias.
+For this, I plotted the squared sum of all the coefficients of the model and selected the highest regularization parameter where the squared sum started to decrease slowly. (lambda = 0.3)
+
+pic 'coefs_lambda.png'
+
+For this exercise and this model, the best Kaggle result was achieved with lambda=1. Reaching the rank 491 of 36284. (Top 1.5%).
+
+
+# 2. Models result summary
 
 Diverse ML models were used, starting from plain Linear Regression 
 
@@ -91,49 +148,24 @@ Diverse ML models were used, starting from plain Linear Regression
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14440
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 2) R2_mean = 0.922 and kaggle MAe = 14470
 
-- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.3  R2_mean = 0.926 and kaggle MAE = 14340
-- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.4  R2_mean = 0.926 and kaggle MAE = 14324
-- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1  R2_mean = 0.926 and kaggle MAE = 14288 (best)
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.3  R2_mean = 0.924 and kaggle MAE = 14340
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.4  R2_mean = 0.924 and kaggle MAE = 14324
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1  R2_mean = 0.925 and kaggle MAE = 14288 (best)
+- Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1.5  R2_mean = 0.922 and kaggle MAE = 14296 
 
 - Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 0.1  R2_mean = 0.925 and kaggle MAE = 14609 
 - Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 1  R2_mean = 0.923 and kaggle MAE = 14305 
 
-
 - XGBoost (FE data v0) R2 = 0.89 and kaggle MAE = 18243
 - XGBoost (FE data v1) R2 = 0.89 and kaggle MAE = 18243 (The same)
 - XGBoost (FE data v2) R2 = 0.91 and kaggle MAE = 14849
-- XGBoost (FE data v3) R2 = 0.91 and kaggle MAE = 14849
-
 - XGBoost (FE data v2_2) R2 = 0.917 and kaggle MAE = 14413
+- XGBoost (FE data v3) R2 = 0.91 and kaggle MAE = 14849
 
 - Skl Neural network R2 = 0.77 and MAE = 21000 (I just copy some code, I used skl NN because I could not install tensorflow)
 
 
-## 3. Problems found
-
-In the model analysis notebook I made some analysis of how R2 score varies with changing the random_state and the test_size of the split fuction.
-
-![R2 = f(random_state]( https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/R2_f(random_state).png )
-
-
-The model performs between 0.7 and 0.85, but in some weird cases, the R2 score gets almost infinite negative values. I could not sort out why this was happening.
-
-Sometimes the models perform well with the test set (cv), but very bad in the Kaggle set, like there is a lot of noise.
-
-Good test set performance. HORRIBLE kaggle performance:
-
-It happend to me that I get very good test (my "test" set, the cross validation) set performance (R2=0.92, MAE = 15k) but when I upload the solution to Kaggle I end with a 4 BILLION MAE Score. (???)
-One plot that has helped me to fix this problem is plotting the target value with the most correlated feature in the x axis, for both train and test set.
-If the plots look similar, it is probable that the result will be good. Otherwise I cant expect bad result in the kaggle score.
-
-![Good result](https://github.com/giampa14/housing_price_kaggle/blob/master/models/good_results.png )
-
-![Bad result](https://github.com/giampa14/housing_price_kaggle/blob/master/models/bad_results.png )
-
-Varying a little bit the regularization parameter alpha has a very big impact in the MAE result of Kaggle.
-Later I will do some research.
-
-## 4. Notes
+# 3. Notes
 
 A relativelly good result was accomplished with the first model of Linear regression with the data of FEv0 (MAE=~20k)
 
@@ -141,15 +173,17 @@ No major improvement could be done manipulating the datasets using the Linear Re
 A significant improvement was acomplished using the alogorithm that everybody uses for the competition (XGBoost). (MAE=~18k).
 
 With FE v2 (that includes some extra preprocessing and powers of the 15 MRF), significant improvement was acomplished.
-With Regularized LR kaggle MAE = 14440 and for XGBoost MAE = 14849. With this submission I achieved the 518th place, inside the 2% best submissions.
+With Regularized LR kaggle MAE = 14288 and for XGBoost MAE = 14849. With this submission I achieved the 491th place, inside the 1.5% best submissions.
 
 It was shown that optimizing the regularization parameter for the R2 score of the cross validation set was not the best option.
 Increasing the regularization, hence lowering the variance, showed better results in the Kaggle test set.
 
-I will add a 0.5 power and include more MRFs.
+todo: I will add a 0.5 power and include more MRFs.
 This approximation did not give better results, indeed, the result went worse.
 
-In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func.
+todo: In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func.
+
+todo: use something like sklearn.pipeline.Pipeline Refer. It helps you bundle all your transformations into a single object so you wouldn't miss a transformation by mistake. Also keeps your code clean!
 
 
 
