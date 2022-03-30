@@ -66,11 +66,9 @@ For the case of the years variables, I will substract the min year first, becaus
 ### 1.6 Feature correlation
 
 A correlation heat map was made for the 15 most relevant/correlated features.
-
-pic 'MRF_heatmap.png'
 ![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/MRF_heatmap.png/?raw=true)
 
-With this MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
+With these MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
 
 
 ### 1.7 Polynomical features
@@ -111,7 +109,6 @@ R2 score and mean absolute error (MAE) were used for results comparisson.
 
 I find that plotting the target value SalePrice with the most correlated feature in the x axis was a good way of visualizing the model accuracy. I made this plot comparnt the test target values with the test predicted values.
 
-pic 'test_vs_test_pred.png'
 ![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/models/test_vs_test_pred.png/?raw=true)
 
 ### 2.3 Looking for the best regularization parameter
