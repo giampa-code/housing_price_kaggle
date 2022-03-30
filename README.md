@@ -138,29 +138,41 @@ Diverse ML models were used, starting from plain Linear Regression
 
 - Linear Regression R2_mean = 0.77   MAE = 20662
 
+---------------------------------------------------------------------------------------------
+
 - Regularized LR (Ridge with alpha=3 optimized for R2) R2_mean = 0.822 and kaggle MAE = 20142
 - Regularized LR (Ridge with alpha=12 optimized for MAE) R2_mean = 0.822 and kaggle  MAE = 20142 
 - Regularized LR with MRF powers (Ridge with alpha=0.4) R2_mean = 0.862 and kaggle MAE = 91591
 - Regularized LR with MRF powers (Ridge with alpha=1) R2_mean = 0.86 and kaggle MAE = 21748 
+
+---------------------------------------------------------------------------------------------
 
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14805
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.05) R2_mean = 0.922 and kaggle MAe = 14496
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 0.1) R2_mean = 0.922 and kaggle MAe = 14440
 - Regularized LR with 15 MRF powers (2,3,4) (alpha = 2) R2_mean = 0.922 and kaggle MAe = 14470
 
+---------------------------------------------------------------------------------------------
+
 - Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.3  R2_mean = 0.924 and kaggle MAE = 14340
 - Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 0.4  R2_mean = 0.924 and kaggle MAE = 14324
 - Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1  R2_mean = 0.925 and kaggle MAE = 14288 (best)
 - Regularized LR with 15 MRF powers (2,3,4) FE v2_2 alpha = 1.5  R2_mean = 0.922 and kaggle MAE = 14296 
 
+---------------------------------------------------------------------------------------------
+
 - Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 0.1  R2_mean = 0.925 and kaggle MAE = 14609 
 - Regularized LR with 15 MRF powers (2,3,4,5) FE v2_3 alpha = 1  R2_mean = 0.923 and kaggle MAE = 14305 
+
+---------------------------------------------------------------------------------------------
 
 - XGBoost (FE data v0) R2 = 0.89 and kaggle MAE = 18243
 - XGBoost (FE data v1) R2 = 0.89 and kaggle MAE = 18243 (The same)
 - XGBoost (FE data v2) R2 = 0.91 and kaggle MAE = 14849
 - XGBoost (FE data v2_2) R2 = 0.917 and kaggle MAE = 14413
 - XGBoost (FE data v3) R2 = 0.91 and kaggle MAE = 14849
+
+---------------------------------------------------------------------------------------------
 
 - Skl Neural network R2 = 0.77 and MAE = 21000 (I just copy some code, I used skl NN because I could not install tensorflow)
 
@@ -179,11 +191,13 @@ It was shown that optimizing the regularization parameter for the R2 score of th
 Increasing the regularization, hence lowering the variance, showed better results in the Kaggle test set.
 
 todo: I will add a 0.5 power and include more MRFs.
-This approximation did not give better results, indeed, the result went worse.
+result: This approximation did not give better results, indeed, the result went worse.
 
 todo: In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func.
 
 todo: use something like sklearn.pipeline.Pipeline Refer. It helps you bundle all your transformations into a single object so you wouldn't miss a transformation by mistake. Also keeps your code clean!
+
+todo: for filling NaNs, it will be helpfull to find some logic instead of filling with the median. For example, looking for the most correlated feature of this feature and then predict the NaN values taking in account this analysis.
 
 
 
