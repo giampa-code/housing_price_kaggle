@@ -68,7 +68,7 @@ For the case of the years variables, I will substract the min year first, becaus
 A correlation heat map was made for the 15 most relevant/correlated features.
 ![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/MRF_heatmap.png/?raw=true)
 
-With this MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
+With these MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
 
 
 ### 1.7 Polynomical features
