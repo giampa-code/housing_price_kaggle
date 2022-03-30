@@ -42,7 +42,7 @@ This process will be done automatically, grouping by the feature's labels and ra
 
 v2: The MSSubClass was re-encoded to find a tendency between the labels.
 
-![SalePrice=f(Neighborhood)](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/scatter_Neighborhood_SalePrice.png/?raw=true)
+![SalePrice=f(Neighborhood)](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/images/scatter_Neighborhood_SalePrice.png/?raw=true)
 
 
 ### 1.3 Outliers treatment
@@ -50,7 +50,7 @@ v2: The MSSubClass was re-encoded to find a tendency between the labels.
 V2: around 15 outlier point were dropped and several data columns were dropped because the target seemed independent from them.
 V2_2: 10 outlier points and 11 features were dropped. It was shown in the charts that these features does not have much relation with the Sale Price.
 
-![Outlier_treatment](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/scatter_YrSold_SalePrice.png/?raw=true)
+![Outlier_treatment](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/images/scatter_YrSold_SalePrice.png/?raw=true)
 
 ### 1.4 Adittional features
 
@@ -66,7 +66,7 @@ For the case of the years variables, I will substract the min year first, becaus
 ### 1.6 Feature correlation
 
 A correlation heat map was made for the 15 most relevant/correlated features.
-![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/MRF_heatmap.png/?raw=true)
+![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/feature_engineering/images/MRF_heatmap.png/?raw=true)
 
 With these MRF, it can be seen that the most significant variables are related to quality, space and neighborhood.
 
@@ -109,25 +109,25 @@ R2 score and mean absolute error (MAE) were used for results comparisson.
 
 I find that plotting the target value SalePrice with the most correlated feature in the x axis was a good way of visualizing the model accuracy. I made this plot comparnt the test target values with the test predicted values.
 
-![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/models/test_vs_test_pred.png/?raw=true)
+![MRF_heatmap](https://github.com/giampa14/housing_price_kaggle/blob/master/models/images/test_vs_test_pred.png/?raw=true)
 
 ### 2.3 Looking for the best regularization parameter
 
 Plotting the R2 score as a function of the regularization parameter shows that no substancial changes are happening between 0.01 and 1.
 
-![R2=f(regularization)](https://github.com/giampa14/housing_price_kaggle/blob/master/models/R2=f(regularization).png/?raw=true)
+![R2=f(regularization)](https://github.com/giampa14/housing_price_kaggle/blob/master/models/images/R2=f(regularization).png/?raw=true)
 
 Learning curves for these two regularization parameters were plotted. As the images show the cost fuction for the train and the test set are approaching asymptotically with a relativelly low final error.
 This can indicate us that the model is not overfitted (high variance) nor underfitted (high bias).
 
-![learning_curves_Alpha_0.01](https://github.com/giampa14/housing_price_kaggle/blob/master/models/learning_curves_Alpha_0_01.png/?raw=true)
+![learning_curves_Alpha_0.01](https://github.com/giampa14/housing_price_kaggle/blob/master/models/images/learning_curves_Alpha_0_01.png/?raw=true)
 
-![learning_curves_Alpha_1](https://github.com/giampa14/housing_price_kaggle/blob/master/models/learning_curves_Alpha_1.png/?raw=true)
+![learning_curves_Alpha_1](https://github.com/giampa14/housing_price_kaggle/blob/master/models/images/learning_curves_Alpha_1.png/?raw=true)
 
 Despite the good results, lower regularization parameter gives higher variance, hence more error in Kaggle. So it's important to find a trade-off between variance and bias.
 For this, I plotted the squared sum of all the coefficients of the model and selected the highest regularization parameter where the squared sum started to decrease slowly. (lambda = 0.3)
 
-![coefs_lambda](https://github.com/giampa14/housing_price_kaggle/blob/master/models/coefs_lambda.png/?raw=true)
+![coefs_lambda](https://github.com/giampa14/housing_price_kaggle/blob/master/models/images/coefs_lambda.png/?raw=true)
 
 For this exercise and this model, the best Kaggle result was achieved with lambda=1. Reaching the rank 491 of 36284. (Top 1.5%).
 
