@@ -179,25 +179,28 @@ Diverse ML models were used, starting from plain Linear Regression
 
 # 3. Notes
 
-A relativelly good result was accomplished with the first model of Linear regression with the data of FEv0 (MAE=~20k)
+- A relativelly good result was accomplished with the first model of Linear regression with the data of FEv0 (MAE=~20k)
 
-No major improvement could be done manipulating the datasets using the Linear Regression model with the FE v0 and v1.
+- No major improvement could be done manipulating the datasets using the Linear Regression model with the FE v0 and v1.
 A significant improvement was acomplished using the alogorithm that everybody uses for the competition (XGBoost). (MAE=~18k).
 
-With FE v2 (that includes some extra preprocessing and powers of the 15 MRF), significant improvement was acomplished.
+- With FE v2 (that includes some extra preprocessing and powers of the 15 MRF), significant improvement was acomplished.
 With Regularized LR kaggle MAE = 14288 and for XGBoost MAE = 14849. With this submission I achieved the 491th place, inside the 1.5% best submissions.
 
-It was shown that optimizing the regularization parameter for the R2 score of the cross validation set was not the best option.
+- It was shown that optimizing the regularization parameter for the R2 score of the cross validation set was not the best option.
 Increasing the regularization, hence lowering the variance, showed better results in the Kaggle test set.
 
-todo: I will add a 0.5 power and include more MRFs.
+- X todo: I will add a 0.5 power and include more MRFs.
 result: This approximation did not give better results, indeed, the result went worse.
 
-todo: In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func.
+- todo: In next steps, I want to research about different algorithms and how to implement them in this competition. Also, using kfoldin may be usefull with the train set, it was shown that the accuracy varies with the random_state used in the split_data func. Maybe splitting the train and test in "equally distributed" samples.
 
-todo: use something like sklearn.pipeline.Pipeline Refer. It helps you bundle all your transformations into a single object so you wouldn't miss a transformation by mistake. Also keeps your code clean!
+- todo: use something like sklearn.pipeline.Pipeline Refer. Kaggle user comment: "It helps you bundle all your transformations into a single object so you wouldn't miss a transformation by mistake. Also keeps your code clean!"
 
-todo: for filling NaNs, it will be helpfull to find some logic instead of filling with the median. For example, looking for the most correlated feature of this feature and then predict the NaN values taking in account this analysis.
+- todo: for filling NaNs, it will be helpfull to find some logic instead of filling with the median. For example, looking for the most correlated feature of this feature and then predict the NaN values taking in account this analysis. Improve inference
+
+- todo: Improve scaling of asymetric/biased features.
+
 
 
 
